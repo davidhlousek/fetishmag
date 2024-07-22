@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetish</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <style>
+        /* Global styles */
+        body {
+            cursor: none;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-top: 1000px; /* Increased padding to move rectangles down */
+        }
+
+        /* Header styles */
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 0, 0, 0);
+            position: absolute;
+            top: 50;
+            left: 0;
+            right: 0;
+            height: 500px; /* Increased height for the header */
+            z-index: 1000;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-container img {
+            max-width: 50%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logo-container img.brgs-logo {
+            max-width: 70% !important; /* Enlarged size for the brgs logo */
+        }
+
+        /* Text below the logo */
+        .brnogs-text {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.5;
+            max-width: 600px;
+            transition: opacity 0.5s ease-in-out;
+            margin-top: -20px;
+        }
+
+        /* Main content styles */
+        .main-content {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+        }
+
+        .background-image.active {
+            opacity: 1;
+        }
+
+        /* Shape styles */
+        .shape {
+            width: calc(33.33% - 40px);
+            height: 200px;
+            margin: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .shape:hover {
+            transform: translateY(-10px);
+        }
+
+        .shape object,
+        .shape svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .shape-text h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .shape-text p {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        /* Custom cursor styles */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            mix-blend-mode: difference;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        .shape:hover .custom-cursor {
+            background-color: #0015ff;
+        }
+
+        /* Custom switch styles */
+        .cl-switch {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            /* For a frosted glass effect */
+        }
+
+        .cl-switch input[type="checkbox"] {
+            display: none;
+        }
+
+        .switcher {
+            width: 50px;
+            height: 25px;
+            background-color: #6c757d;
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .switcher::after {
+            content: "";
+            width: 23px;
+            height: 23px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        input[type="checkbox"]:checked+.switcher {
+            background-color: #0015ff;
+        }
+
+        input[type="checkbox"]:checked+.switcher::after {
+            transform: translateX(25px);
+        }
+
+        .label {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .brnogs-text {
+                font-size: 1em;
+                max-width: 90%;
+            }
+
+            .container {
+                padding-top: 100px; /* Adjusted padding for tablet view */
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .shape {
+                width: calc(100% - 40px);
+                margin: 10px 0;
+                height: 150px;
+            }
+
+            .shape-text h3 {
+                font-size: 1.2em;
+            }
+
+            .shape-text p {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brnogs-text {
+                font-size: 0.9em;
+                max-width: 90%;
+            }
+
+            .container {
+                padding-top: 1400px; /* Adjusted padding for small mobile view */
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .shape {
+                width: calc(100% - 20px);
+                margin: 10px 0;
+                height: 120px;
+            }
+
+            .shape-text h3 {
+                font-size: 1em;
+            }
+
+            .shape-text p {
+                font-size: 0.8em;
+            }
+
+            .custom-cursor {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <div class="logo-container" onclick="navigateToFetish();">
+            <img id="logo" src="logofetish.png" alt="Fetish Magazine Logo">
+        </div>
+        <div class="brnogs-text" id="brnogsText">
+            <span>Fetish</span> Magazine is exploring the corners of fetishism, sexual objectification, and the tendencies of fetishism.
+        </div>
+    </header>
+
+    <!-- Custom switch -->
+    <label class="cl-switch">
+        <input type="checkbox" id="toggleSwitch">
+        <span class="switcher"></span>
+        <span class="label">Switch to Brnogs</span>
+    </label>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="background-container">
+            <div class="background-image" id="backgroundImage1"></div>
+            <div class="background-image" id="backgroundImage2"></div>
+        </div>
+        <div class="container" id="shapeContainer">
+            <!-- Shapes will be dynamically updated here -->
+        </div>
+    </div>
+
+    <!-- Custom cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- JavaScript for custom cursor and button toggling -->
+    <script>
+        const shapePaths = [
+            'shape.svg',
+            'shape2.svg'
+        ];
+
+        const fetishBackgroundImages = [
+            'images/P1010006.JPG',
+            'images/P1010012.JPG',
+            'images/P1010014.JPG',
+            'images/P1010015.JPG',
+            'images/P1010016.JPG',
+            'images/P1010018.JPG',
+            'images/P1010026.JPG',
+            'images/P1010033.JPG',
+            'images/P1010034.JPG',
+            'images/P1010035.JPG',
+            'images/P1010036.JPG',
+            'images/P1010037.JPG',
+            'images/P1010038.JPG',
+            'images/P1010039.JPG',
+            'images/P1010040.JPG',
+            'images/P1010041.JPG',
+            'images/P1010042.JPG',
+            'images/P1010043.JPG',
+            'images/P1010044.JPG',
+            'images/P1010045.JPG',
+        ];
+
+        const brnogsBackgroundImages = [
+            'images/brno1.JPG',
+            'images/brno2.JPG',
+            'images/brno3.JPG',
+            'images/brno4.JPG',
+            'images/brno5.JPG'
+        ];
+
+        const logos = [
+            'logofetish.png',
+            'logobrgs.png'
+        ];
+
+        const fetishShapes = [
+            { title: 'WHAT IS FETISH?', description: 'Explore the foundational ideas behind fetishism.', link: 'article1.html' },
+            { title: 'FETISH OF COMMODITY', description: 'Delve into the intricacies of modern consumer fetishes.', link: 'article2.html' },
+            { title: 'WROCLAW', description: 'Listen to insightful discussions with industry experts.', link: 'article3.html' },
+            { title: 'ANOTHER STUFF', description: 'View stunning visual content from Fetish Magazine.', link: 'article4.html' },
+            { title: 'FETISH OF COMMODITY', description: 'Stay updated with the latest issues and announcements.', link: 'subscribe.html' },
+            { title: 'About Us', description: 'Learn more about the team behind Fetish Magazine.', link: 'about.html' }
+        ];
+
+        const brnogsShapes = [
+            { title: 'Who the F*@k are the Gs?', description: 'The Brno Gs stand as a local project that conduct podcasts...', link: 'brgs1.html' },
+            { title: 'What Bistro Bastardo is?', description: 'All the flavours, I straight fell in love with it.', link: 'brgs2.html' },
+            { title: 'It was worth it (The sacrifice) right?', description: 'Yeah so it was just us (David, Ale, and Tomas) from the beginning.', link: 'brgs3.html' },
+        ];
+
+        const texts = {
+            'logofetish.png': '<span>Fetish</span> Magazine is exploring the corners of fetishism, sexual objectification, and the tendencies of fetishism.',
+            'logobrgs.png': 'Interviews with businesses around our small yet significant city of Brno to inspire individuals, no matter who they are, to start their own journeys.'
+        };
+
+        let currentImageIndex = 0;
+        let useFetishImages = true;
+        let imageElements = [];
+
+        function preloadImages(images, callback) {
+            let loadedImages = 0;
+            const totalImages = images.length;
+
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => {
+                    loadedImages++;
+                    if (loadedImages === totalImages) {
+                        callback();
+                    }
+                };
+            });
+        }
+
+        function changeBackgroundImage() {
+            const backgroundImages = useFetishImages ? fetishBackgroundImages : brnogsBackgroundImages;
+            const currentImage = backgroundImages[currentImageIndex];
+            const nextImage = backgroundImages[(currentImageIndex + 1) % backgroundImages.length];
+
+            const image1 = document.getElementById('backgroundImage1');
+            const image2 = document.getElementById('backgroundImage2');
+
+            image1.style.backgroundImage = `url('${currentImage}')`;
+            image2.style.backgroundImage = `url('${nextImage}')`;
+
+            image1.classList.remove('active');
+            image2.classList.add('active');
+
+            setTimeout(() => {
+                image1.classList.add('active');
+                image2.classList.remove('active');
+                currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+            }, 10); // Small timeout to allow the class to be applied and trigger the transition
+        }
+
+        function changeLogo() {
+            const logoImg = document.getElementById('logo');
+            const brnogsText = document.getElementById('brnogsText');
+            const logoFilename = logoImg.src.split('/').pop(); // Extract the filename from the full path
+            logoImg.src = useFetishImages ? logos[0] : logos[1];
+            brnogsText.innerHTML = texts[logoFilename];
+
+            // Apply the class for larger logo
+            if (!useFetishImages) {
+                logoImg.classList.add('brgs-logo');
+            } else {
+                logoImg.classList.remove('brgs-logo');
+            }
+        }
+
+        function updateShapes() {
+            const container = document.getElementById('shapeContainer');
+            container.innerHTML = '';
+
+            const shapes = useFetishImages ? fetishShapes : brnogsShapes;
+
+            shapes.forEach(shape => {
+                const div = document.createElement('div');
+                div.className = 'shape';
+                const shapePath = shapePaths[Math.floor(Math.random() * shapePaths.length)]; // Randomly choose shape.svg or shape2.svg
+                div.innerHTML = `
+                    <object data="${shapePath}" type="image/svg+xml"></object>
+                    <div class="shape-text">
+                        <h3>${shape.title}</h3>
+                        <p>${shape.description}</p>
+                    </div>
+                `;
+                div.onclick = function() {
+                    navigateTo(shape.link);
+                };
+                container.appendChild(div);
+            });
+        }
+
+        function navigateToFetish() {
+            window.location.href = 'https://www.instagram.com/fetishmagazine_/';
+        }
+
+        function navigateToBrnoGS() {
+            window.location.href = 'https://www.instagram.com/brno_gs/';
+        }
+
+        // Initial call to preload background images
+        preloadImages(fetishBackgroundImages.concat(brnogsBackgroundImages), () => {
+            changeBackgroundImage();
+            setInterval(changeBackgroundImage, 1000); // Change background image every 5 seconds
+        });
+
+        // Custom cursor movement
+        const customCursor = document.querySelector('.custom-cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            customCursor.style.left = `${e.clientX}px`;
+            customCursor.style.top = `${e.clientY}px`;
+        });
+
+        // Function to navigate to a different page
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        // Function to toggle switch button
+        document.getElementById('toggleSwitch').addEventListener('change', function() {
+            useFetishImages = !this.checked;
+            currentImageIndex = 0;
+            changeBackgroundImage();
+            changeLogo();
+            updateShapes();
+
+            // Update the logo click behavior based on the switch state
+            if (useFetishImages) {
+                document.querySelector('.logo-container').onclick = navigateToFetish;
+            } else {
+                document.querySelector('.logo-container').onclick = navigateToBrnoGS;
+            }
+        });
+
+        // Initial call to set up the content
+        updateShapes();
+    </script>
+</body>
+
+</html>
+
